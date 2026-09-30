@@ -10,7 +10,6 @@ use RunApi\Core\RequestOptions;
 use RunApi\Core\Resources\TypedConfiguredResource;
 use RunApi\Pixverse\Models\CompletedVideoTaskResponse;
 use RunApi\Pixverse\Models\VideoTaskResponse;
-use RunApi\Pixverse\Types;
 
 /** Edit video operations for PixVerse. */
 readonly class EditVideo extends TypedConfiguredResource
@@ -73,10 +72,8 @@ readonly class EditVideo extends TypedConfiguredResource
         return new self(
             $http,
             '/api/v1/pixverse/edit_video',
-            'pixverse/edit-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
-            Types::EDIT_VIDEO_MODELS,
             'edit-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,

@@ -35,8 +35,7 @@ final class PixverseClientTest extends TestCase
     public function testCreatePostsCompactedBodyToCorrectPath(): void
     {
         $transport = new QueueHttpClient([
-            new Response(200, [], '{"id":"task_1"}'),
-        ]);
+            new Response(200, [], '{"id":"task_1"}')]);
         $client = new PixverseClient(new ClientOptions(apiKey: 'k', httpClient: $transport, maxRetries: 0));
 
         $task = $client->textToVideo->create([
@@ -47,8 +46,7 @@ final class PixverseClientTest extends TestCase
             'enable_audio' => true,
             'aspect_ratio' => '16:9',
             'enable_multi_clip' => true,
-            'callback_url' => '',
-        ]);
+            'callback_url' => '']);
 
         $body = json_decode((string) $transport->requests[0]->getBody(), true, flags: JSON_THROW_ON_ERROR);
 
@@ -63,8 +61,7 @@ final class PixverseClientTest extends TestCase
     {
         $transport = new QueueHttpClient([
             new Response(200, [], '{"id":"task_1"}'),
-            new Response(200, [], '{"id":"task_1","status":"completed","videos":[{"url":"https://file.runapi.ai/result"}],"generation_stage":"all_audios_ready","extra_field":"kept"}'),
-        ]);
+            new Response(200, [], '{"id":"task_1","status":"completed","videos":[{"url":"https://file.runapi.ai/result"}],"generation_stage":"all_audios_ready","extra_field":"kept","usage":{"cost":0.05}}')]);
         $client = new PixverseClient(new ClientOptions(apiKey: 'k', httpClient: $transport, maxRetries: 0));
 
         $result = $client->textToVideo->run([
@@ -75,8 +72,7 @@ final class PixverseClientTest extends TestCase
             'enable_audio' => true,
             'seed' => 1,
             'aspect_ratio' => '16:9',
-            'enable_multi_clip' => true,
-        ]);
+            'enable_multi_clip' => true]);
 
         self::assertInstanceOf(CompletedVideoTaskResponse::class, $result);
         self::assertSame('https://file.runapi.ai/result', $result->videos[0]->url);
@@ -88,8 +84,7 @@ final class PixverseClientTest extends TestCase
     {
         $transport = new QueueHttpClient([
             new Response(200, [], '{"id":"task_1"}'),
-            new Response(200, [], '{"id":"task_1","status":"completed"}'),
-        ]);
+            new Response(200, [], '{"id":"task_1","status":"completed","usage":{"cost":0.05}}')]);
         $client = new PixverseClient(new ClientOptions(apiKey: 'k', httpClient: $transport, maxRetries: 0));
 
         $this->expectException(ValidationException::class);
@@ -103,35 +98,16 @@ final class PixverseClientTest extends TestCase
             'enable_audio' => true,
             'seed' => 1,
             'aspect_ratio' => '16:9',
-            'enable_multi_clip' => true,
-        ]);
+            'enable_multi_clip' => true]);
     }
 
-    public function testRejectsInvalidContractEnum(): void
-    {
-        $client = new PixverseClient(new ClientOptions(apiKey: 'k', httpClient: new QueueHttpClient([]), maxRetries: 0));
 
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('output_resolution must be one of the allowed values');
-
-        $client->textToVideo->create([
-        'model' => 'pixverse-v6',
-        'prompt' => 'A product render',
-        'duration_seconds' => 1,
-        'enable_audio' => true,
-        'seed' => 1,
-        'aspect_ratio' => '16:9',
-        'enable_multi_clip' => true,
-        'output_resolution' => 'not-valid',
-        ]);
-    }
 
 
     public function testSecondaryResourceUsesItsOwnPath(): void
     {
         $transport = new QueueHttpClient([
-            new Response(200, [], '{"id":"task_2"}'),
-        ]);
+            new Response(200, [], '{"id":"task_2"}')]);
         $client = new PixverseClient(new ClientOptions(apiKey: 'k', httpClient: $transport, maxRetries: 0));
 
         $client->imageToVideo->create([
@@ -142,8 +118,7 @@ final class PixverseClientTest extends TestCase
             'enable_audio' => true,
             'seed' => 1,
             'first_frame_image_url' => 'https://cdn.runapi.ai/public/samples/image.jpg',
-            'enable_multi_clip' => true,
-        ]);
+            'enable_multi_clip' => true]);
 
         self::assertSame('/api/v1/pixverse/image_to_video', $transport->requests[0]->getUri()->getPath());
     }

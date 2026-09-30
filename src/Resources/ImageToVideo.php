@@ -10,7 +10,6 @@ use RunApi\Core\RequestOptions;
 use RunApi\Core\Resources\TypedConfiguredResource;
 use RunApi\Pixverse\Models\CompletedVideoTaskResponse;
 use RunApi\Pixverse\Models\VideoTaskResponse;
-use RunApi\Pixverse\Types;
 
 /** Image to video operations for PixVerse. */
 readonly class ImageToVideo extends TypedConfiguredResource
@@ -73,10 +72,8 @@ readonly class ImageToVideo extends TypedConfiguredResource
         return new self(
             $http,
             '/api/v1/pixverse/image_to_video',
-            'pixverse/image-to-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
-            Types::IMAGE_TO_VIDEO_MODELS,
             'image-to-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,

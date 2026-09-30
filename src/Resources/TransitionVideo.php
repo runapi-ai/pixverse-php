@@ -10,7 +10,6 @@ use RunApi\Core\RequestOptions;
 use RunApi\Core\Resources\TypedConfiguredResource;
 use RunApi\Pixverse\Models\CompletedVideoTaskResponse;
 use RunApi\Pixverse\Models\VideoTaskResponse;
-use RunApi\Pixverse\Types;
 
 /** Transition video operations for PixVerse. */
 readonly class TransitionVideo extends TypedConfiguredResource
@@ -73,10 +72,8 @@ readonly class TransitionVideo extends TypedConfiguredResource
         return new self(
             $http,
             '/api/v1/pixverse/transition_video',
-            'pixverse/transition-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
-            Types::TRANSITION_VIDEO_MODELS,
             'transition-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,

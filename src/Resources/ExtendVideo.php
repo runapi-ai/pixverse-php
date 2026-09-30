@@ -10,7 +10,6 @@ use RunApi\Core\RequestOptions;
 use RunApi\Core\Resources\TypedConfiguredResource;
 use RunApi\Pixverse\Models\CompletedVideoTaskResponse;
 use RunApi\Pixverse\Models\VideoTaskResponse;
-use RunApi\Pixverse\Types;
 
 /** Extend video operations for PixVerse. */
 readonly class ExtendVideo extends TypedConfiguredResource
@@ -71,10 +70,8 @@ readonly class ExtendVideo extends TypedConfiguredResource
         return new self(
             $http,
             '/api/v1/pixverse/extend_video',
-            'pixverse/extend-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
-            Types::EXTEND_VIDEO_MODELS,
             'extend-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,

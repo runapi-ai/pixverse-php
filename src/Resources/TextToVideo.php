@@ -10,7 +10,6 @@ use RunApi\Core\RequestOptions;
 use RunApi\Core\Resources\TypedConfiguredResource;
 use RunApi\Pixverse\Models\CompletedVideoTaskResponse;
 use RunApi\Pixverse\Models\VideoTaskResponse;
-use RunApi\Pixverse\Types;
 
 /** Text to video operations for PixVerse. */
 readonly class TextToVideo extends TypedConfiguredResource
@@ -73,10 +72,8 @@ readonly class TextToVideo extends TypedConfiguredResource
         return new self(
             $http,
             '/api/v1/pixverse/text_to_video',
-            'pixverse/text-to-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
-            Types::TEXT_TO_VIDEO_MODELS,
             'text-to-video',
             VideoTaskResponse::class,
             CompletedVideoTaskResponse::class,
